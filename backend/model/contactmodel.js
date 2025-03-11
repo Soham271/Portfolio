@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 let ContactSchema = new mongoose.Schema({
+  
   Name: {
     type: String,
     required: true,
@@ -8,10 +9,10 @@ let ContactSchema = new mongoose.Schema({
   Email: {
     type: String,
     required: true,
-    unique: true, // Optional: Ensures emails are unique
+    unique: true,
   },
   PhoneNumber: {
-    type: String, // Changed from Number to String
+    type: Number, 
     required: true,
   },
   Subject: {
