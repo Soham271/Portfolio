@@ -10,13 +10,14 @@ const Resume = () => {
   const [skillData, setSkillData] = useState(false);
   const [experienceData, setExperienceData] = useState(false);
   const [achievementData, setAchievementData] = useState(false);
+
   return (
-    <section id="resume" className="w-full py-20 border-b-[1px] border-b-black">
+    <section id="resume" className="w-full py-20 border-b-[1px] border-gray-700">
       <div className="flex justify-center items-center text-center">
         <Title des="My Resume" />
       </div>
-      <div>
-        <ul className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
+      <div className="mt-8">
+        <ul className="w-full grid grid-cols-2 lg:grid-cols-4 gap-4">
           <li
             onClick={() =>
               setEducationData(true) &
@@ -24,11 +25,7 @@ const Resume = () => {
               setExperienceData(false) &
               setAchievementData(false)
             }
-            className={`${
-              educationData
-                ? "border-designColor rounded-lg"
-                : "border-transparent"
-            } resumeLi`}
+            className={`resumeLi ${educationData ? "border-designColor bg-gray-800" : ""}`}
           >
             Education
           </li>
@@ -39,9 +36,7 @@ const Resume = () => {
               setExperienceData(false) &
               setAchievementData(false)
             }
-            className={`${
-              skillData ? "border-designColor rounded-lg" : "border-transparent"
-            } resumeLi`}
+            className={`resumeLi ${skillData ? "border-designColor bg-gray-800" : ""}`}
           >
             Professional Skills
           </li>
@@ -52,11 +47,7 @@ const Resume = () => {
               setExperienceData(true) &
               setAchievementData(false)
             }
-            className={`${
-              experienceData
-                ? "border-designColor rounded-lg"
-                : "border-transparent"
-            } resumeLi`}
+            className={`resumeLi ${experienceData ? "border-designColor bg-gray-800" : ""}`}
           >
             Experience
           </li>
@@ -67,11 +58,7 @@ const Resume = () => {
               setExperienceData(false) &
               setAchievementData(true)
             }
-            className={`${
-              achievementData
-                ? "border-designColor rounded-lg"
-                : "border-transparent"
-            } resumeLi`}
+            className={`resumeLi ${achievementData ? "border-designColor bg-gray-800" : ""}`}
           >
             Achievements
           </li>
