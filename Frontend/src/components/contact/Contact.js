@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import Title from "../layouts/Title";
 import ContactLeft from "./ContactLeft";
 import axios from "axios";
+
 const Contact = () => {
-  const [Name, setName] = useState("");
+  const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
@@ -11,176 +12,140 @@ const Contact = () => {
   const [errMsg, setErrMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
 
-  // ========== Email Validation start here ==============
   const emailValidation = () => {
     return String(email)
-      .toLocaleLowerCase()
+      .toLowerCase()
       .match(/^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/);
   };
 
   const handleSend = async (e) => {
     e.preventDefault();
 
-    const data = {
-      Name: Name, // 🔄 Fix: Match backend field names
-      PhoneNumber: phoneNumber,
-      Email: email,
-      Subject: subject,
-      Message: message,
-    };
-
-    try {
-      const response = await axios.post(
-        "http://localhost:3004/api/v1/create",
-        data, // ✅ Send JSON instead of FormData
-        {
-          headers: {
-            "Content-Type": "application/json", // ✅ Ensure JSON is sent
-          },
-        }
-      );
-      console.log("✅ Response:", response.data);
-    } catch (Err) {
-      console.error("❌ Axios Error:", Err);
-    }
-
-    if (Name === "") {
-      setErrMsg("Username is required!");
+    if (name === "") {
+      setErrMsg("Name is required!");
     } else if (phoneNumber === "") {
       setErrMsg("Phone number is required!");
     } else if (email === "") {
-      setErrMsg("Please give your Email!");
+      setErrMsg("Email is required!");
     } else if (!emailValidation(email)) {
-      setErrMsg("Give a valid Email!");
+      setErrMsg("Please enter a valid email!");
     } else if (subject === "") {
-      setErrMsg("Plese give your Subject!");
+      setErrMsg("Subject is required!");
     } else if (message === "") {
       setErrMsg("Message is required!");
     } else {
-      setSuccessMsg(
-        `Thank you dear ${Name}, Your Messages has been sent Successfully!`
-      );
-      setErrMsg("");
-      setName("");
-      setPhoneNumber("");
-      setEmail("");
-      setSubject("");
-      setMessage("");
+      try {
+        const data = { name, phoneNumber, email, subject, message };
+        const response = await axios.post(
+          "http://localhost:3004/api/v1/create",
+          data,
+          { headers: { "Content-Type": "application/json" } }
+        );
+        console.log("✅ Response:", response.data);
+        setSuccessMsg(`Thank you, ${name}! Your message has been sent successfully!`);
+        setErrMsg("");
+        setName("");
+        setPhoneNumber("");
+        setEmail("");
+        setSubject("");
+        setMessage("");
+      } catch (err) {
+        console.error("❌ Axios Error:", err);
+        setErrMsg("Failed to send message. Please try again.");
+      }
     }
   };
+
   return (
-    <section
-      id="contact"
-      className="w-full py-20 border-b-[1px] border-b-black"
-    >
+    <section id="contact" className="w-full py-20 border-b-[1px] border-gray-700">
       <div className="flex justify-center items-center text-center">
-        <Title title="CONTACT" des="Contact With Me" />
+        <Title title="CONTACT" des="Get in Touch" />
       </div>
-      <div className="w-full">
-        <div className="w-full h-auto flex flex-col lgl:flex-row justify-between">
+      <div className="w-full max-w-7xl mx-auto">
+        <div className="flex flex-col lg:flex-row justify-between gap-8">
           <ContactLeft />
-          <div className="w-full lgl:w-[60%] h-full py-10 bg-gradient-to-r from-[#1e2024] to-[#23272b] flex flex-col gap-8 p-4 lgl:p-8 rounded-lg shadow-shadowOne">
-            <form className="w-full flex flex-col gap-4 lgl:gap-6 py-2 lgl:py-5">
+          <div className="w-full lg:w-[60%] bg-gray-800 rounded-lg p-6 lg:p-8 shadowOne">
+            <form className="flex flex-col gap-6">
               {errMsg && (
-                <p className="py-3 bg-gradient-to-r from-[#1e2024] to-[#23272b] shadow-shadowOne text-center text-orange-500 text-base tracking-wide animate-bounce">
+                <p className="py-3 bg-gray-700 text-orange-500 text-center text-base font-medium rounded-lg shadowOne animate-bounce">
                   {errMsg}
                 </p>
               )}
               {successMsg && (
-                <p className="py-3 bg-gradient-to-r from-[#1e2024] to-[#23272b] shadow-shadowOne text-center text-green-500 text-base tracking-wide animate-bounce">
+                <p className="py-3 bg-gray-700 text-green-500 text-center text-base font-medium rounded-lg shadowOne animate-bounce">
                   {successMsg}
                 </p>
               )}
-              <div className="w-full flex flex-col lgl:flex-row gap-10">
-                <div className="w-full lgl:w-1/2 flex flex-col gap-4">
-                  <p className="text-sm text-gray-400 uppercase tracking-wide">
-                    Your name
-                  </p>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm text-gray-300 uppercase font-medium">
+                    Your Name
+                  </label>
                   <input
                     onChange={(e) => setName(e.target.value)}
-                    value={Name}
-                    className={`${
-                      errMsg === "Username is required!" &&
-                      "outline-designColor"
-                    } contactInput`}
+                    value={name}
+                    className={`contactInput ${errMsg === "Name is required!" && "border-orange-500"}`}
                     type="text"
+                    aria-label="Your name"
                   />
                 </div>
-                <div className="w-full lgl:w-1/2 flex flex-col gap-4">
-                  <p className="text-sm text-gray-400 uppercase tracking-wide">
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm text-gray-300 uppercase font-medium">
                     Phone Number
-                  </p>
+                  </label>
                   <input
                     onChange={(e) => setPhoneNumber(e.target.value)}
                     value={phoneNumber}
-                    className={`${
-                      errMsg === "Phone number is required!" &&
-                      "outline-designColor"
-                    } contactInput`}
-                    type="text"
+                    className={`contactInput ${errMsg === "Phone number is required!" && "border-orange-500"}`}
+                    type="tel"
+                    aria-label="Phone number"
                   />
                 </div>
               </div>
-              <div className="flex flex-col gap-4">
-                <p className="text-sm text-gray-400 uppercase tracking-wide">
+              <div className="flex flex-col gap-2">
+                <label className="text-sm text-gray-300 uppercase font-medium">
                   Email
-                </p>
+                </label>
                 <input
                   onChange={(e) => setEmail(e.target.value)}
                   value={email}
-                  className={`${
-                    errMsg === "Please give your Email!" &&
-                    "outline-designColor"
-                  } contactInput`}
+                  className={`contactInput ${errMsg.includes("Email") && "border-orange-500"}`}
                   type="email"
+                  aria-label="Email address"
                 />
               </div>
-              <div className="flex flex-col gap-4">
-                <p className="text-sm text-gray-400 uppercase tracking-wide">
+              <div className="flex flex-col gap-2">
+                <label className="text-sm text-gray-300 uppercase font-medium">
                   Subject
-                </p>
+                </label>
                 <input
                   onChange={(e) => setSubject(e.target.value)}
                   value={subject}
-                  className={`${
-                    errMsg === "Plese give your Subject!" &&
-                    "outline-designColor"
-                  } contactInput`}
+                  className={`contactInput ${errMsg === "Subject is required!" && "border-orange-500"}`}
                   type="text"
+                  aria-label="Subject"
                 />
               </div>
-              <div className="flex flex-col gap-4">
-                <p className="text-sm text-gray-400 uppercase tracking-wide">
+              <div className="flex flex-col gap-2">
+                <label className="text-sm text-gray-300 uppercase font-medium">
                   Message
-                </p>
+                </label>
                 <textarea
                   onChange={(e) => setMessage(e.target.value)}
                   value={message}
-                  className={`${
-                    errMsg === "Message is required!" && "outline-designColor"
-                  } contactTextArea`}
+                  className={`contactTextArea ${errMsg === "Message is required!" && "border-orange-500"}`}
                   cols="30"
-                  rows="8"
+                  rows="6"
+                  aria-label="Message"
                 ></textarea>
               </div>
-              <div className="w-full">
-                <button
-                  onClick={handleSend}
-                  className="w-full h-12 bg-[#141518] rounded-lg text-base text-gray-400 tracking-wider uppercase hover:text-white duration-300 hover:border-[1px] hover:border-designColor border-transparent"
-                >
-                  Send Message
-                </button>
-              </div>
-              {errMsg && (
-                <p className="py-3 bg-gradient-to-r from-[#1e2024] to-[#23272b] shadow-shadowOne text-center text-orange-500 text-base tracking-wide animate-bounce">
-                  {errMsg}
-                </p>
-              )}
-              {successMsg && (
-                <p className="py-3 bg-gradient-to-r from-[#1e2024] to-[#23272b] shadow-shadowOne text-center text-green-500 text-base tracking-wide animate-bounce">
-                  {successMsg}
-                </p>
-              )}
+              <button
+                onClick={handleSend}
+                className="w-full h-12 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                aria-label="Send message"
+              >
+                Send Message
+              </button>
             </form>
           </div>
         </div>
