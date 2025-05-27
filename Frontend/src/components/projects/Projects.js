@@ -24,7 +24,14 @@ const Projects = () => {
           githubLink="https://github.com/Arnav-NK/Job_Application_Auto-filler"
           liveLink="https://job-autofiller-demo.netlify.app"
         />
-
+        {/* DevDuel */}
+        <ProjectsCard
+          title="DevDuel"
+          des=" DevDuel is basically a platform where two or more users compete live to solve coding problems.Real-time coding environment,Same problem for multiple  players,Timer to create pressure and excitement,Leaderboard that updates live as players solve the problem"
+          src={projectThree}
+          githubLink="https://github.com/Soham271/DevDuel"
+          liveLink="https://online-code-sync-demo.netlify.app"
+        />
         {/* Zamato Project */}
         <ProjectsCard
           title="Zamato"
