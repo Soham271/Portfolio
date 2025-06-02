@@ -1,5 +1,11 @@
 import React from "react";
-import { FaFacebookF, FaLinkedinIn, FaReact, FaInstagram } from "react-icons/fa";
+import {
+  FaFacebookF,
+  FaLinkedinIn,
+  FaReact,
+  FaInstagram,
+  FaGithub,
+} from "react-icons/fa";
 import { SiTailwindcss, SiNodedotjs, SiMongodb, SiHtml5 } from "react-icons/si";
 import resume from "../../assets/resume.pdf";
 
@@ -36,6 +42,14 @@ const Media = () => {
           >
             <FaLinkedinIn className="text-xl" />
           </a>
+          <a
+            href="https://github.com/Soham271"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bannerIcon bg-[#50b946] hover:bg-black"
+          >
+            <FaGithub className="text-xl" />
+          </a>
         </div>
       </div>
 
@@ -45,7 +59,7 @@ const Media = () => {
           Best Skills
         </h2>
         <div className="flex gap-4 flex-wrap justify-center">
-          <span className="bannerIcon bg-[#61DBFB]">
+          <span className="bannerIcon bg-[#98342f]">
             <FaReact className="text-xl" />
           </span>
           <span className="bannerIcon bg-[#3c873a]">

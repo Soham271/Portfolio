@@ -35,14 +35,22 @@ const Contact = () => {
       setErrMsg("Message is required!");
     } else {
       try {
-        const data = { name, phoneNumber, email, subject, message };
+        const data = {
+          Name: name,
+          PhoneNumber: phoneNumber,
+          Email: email,
+          Subject: subject,
+          Message: message,
+        };
         const response = await axios.post(
           "http://localhost:3004/api/v1/create",
           data,
           { headers: { "Content-Type": "application/json" } }
         );
-        console.log("✅ Response:", response.data);
-        setSuccessMsg(`Thank you, ${name}! Your message has been sent successfully!`);
+        console.log(" Response:", response.data);
+        setSuccessMsg(
+          `Thank you, ${name}! Your message has been sent successfully!`
+        );
         setErrMsg("");
         setName("");
         setPhoneNumber("");
@@ -50,14 +58,16 @@ const Contact = () => {
         setSubject("");
         setMessage("");
       } catch (err) {
-        console.error("❌ Axios Error:", err);
+        console.error(" Axios Error:", err);
         setErrMsg("Failed to send message. Please try again.");
       }
     }
   };
-
   return (
-    <section id="contact" className="w-full py-20 border-b-[1px] border-gray-700">
+    <section
+      id="contact"
+      className="w-full py-20 border-b-[1px] border-gray-700"
+    >
       <div className="flex justify-center items-center text-center">
         <Title title="CONTACT" des="Get in Touch" />
       </div>
@@ -84,7 +94,9 @@ const Contact = () => {
                   <input
                     onChange={(e) => setName(e.target.value)}
                     value={name}
-                    className={`contactInput ${errMsg === "Name is required!" && "border-orange-500"}`}
+                    className={`contactInput ${
+                      errMsg === "Name is required!" && "border-orange-500"
+                    }`}
                     type="text"
                     aria-label="Your name"
                   />
@@ -96,7 +108,10 @@ const Contact = () => {
                   <input
                     onChange={(e) => setPhoneNumber(e.target.value)}
                     value={phoneNumber}
-                    className={`contactInput ${errMsg === "Phone number is required!" && "border-orange-500"}`}
+                    className={`contactInput ${
+                      errMsg === "Phone number is required!" &&
+                      "border-orange-500"
+                    }`}
                     type="tel"
                     aria-label="Phone number"
                   />
@@ -109,7 +124,9 @@ const Contact = () => {
                 <input
                   onChange={(e) => setEmail(e.target.value)}
                   value={email}
-                  className={`contactInput ${errMsg.includes("Email") && "border-orange-500"}`}
+                  className={`contactInput ${
+                    errMsg.includes("Email") && "border-orange-500"
+                  }`}
                   type="email"
                   aria-label="Email address"
                 />
@@ -121,7 +138,9 @@ const Contact = () => {
                 <input
                   onChange={(e) => setSubject(e.target.value)}
                   value={subject}
-                  className={`contactInput ${errMsg === "Subject is required!" && "border-orange-500"}`}
+                  className={`contactInput ${
+                    errMsg === "Subject is required!" && "border-orange-500"
+                  }`}
                   type="text"
                   aria-label="Subject"
                 />
@@ -133,7 +152,9 @@ const Contact = () => {
                 <textarea
                   onChange={(e) => setMessage(e.target.value)}
                   value={message}
-                  className={`contactTextArea ${errMsg === "Message is required!" && "border-orange-500"}`}
+                  className={`contactTextArea ${
+                    errMsg === "Message is required!" && "border-orange-500"
+                  }`}
                   cols="30"
                   rows="6"
                   aria-label="Message"
