@@ -1,6 +1,11 @@
 import React from "react";
 import Title from "../layouts/Title";
-import { projectOne, projectTwo, projectThree } from "../../assets/index";
+import {
+  projectOne,
+  projectTwo,
+  projectThree,
+  projectFour,
+} from "../../assets/index";
 import ProjectsCard from "./ProjectsCard";
 
 const Projects = () => {
@@ -28,7 +33,7 @@ const Projects = () => {
         <ProjectsCard
           title="DevDuel"
           des=" DevDuel is basically a platform where two or more users compete live to solve coding problems.Real-time coding environment,Same problem for multiple  players,Timer to create pressure and excitement,Leaderboard that updates live as players solve the problem"
-          src={projectThree}
+          src={projectFour}
           githubLink="https://github.com/Soham271/DevDuel"
           liveLink="https://online-code-sync-demo.netlify.app"
         />

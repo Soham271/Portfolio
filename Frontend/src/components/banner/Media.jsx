@@ -6,7 +6,17 @@ import {
   FaInstagram,
   FaGithub,
 } from "react-icons/fa";
-import { SiTailwindcss, SiNodedotjs, SiMongodb, SiHtml5 } from "react-icons/si";
+import {
+  SiTailwindcss,
+  SiNodedotjs,
+  SiMongodb,
+  SiHtml5,
+  SiCss3,
+  SiExpress,
+  SiMysql,
+  SiDocker,
+  SiJavascript,
+} from "react-icons/si";
 import resume from "../../assets/resume.pdf";
 
 const Media = () => {
@@ -59,8 +69,11 @@ const Media = () => {
           Best Skills
         </h2>
         <div className="flex gap-4 flex-wrap justify-center">
-          <span className="bannerIcon bg-[#98342f]">
+          <span className="bannerIcon bg-[#33484e]">
             <FaReact className="text-xl" />
+          </span>
+          <span className="bannerIcon bg-[#d3e138]">
+            <SiJavascript className="text-xl" />
           </span>
           <span className="bannerIcon bg-[#3c873a]">
             <SiNodedotjs className="text-xl" />
@@ -71,6 +84,19 @@ const Media = () => {
           <span className="bannerIcon bg-[#4db33d]">
             <SiMongodb className="text-xl" />
           </span>
+          <span className="bannerIcon bg-[#3b2f58]">
+            <SiCss3 className="text-xl" />
+          </span>
+          <span className="bannerIcon bg-[#648f3b]">
+            <SiExpress className="text-xl" />
+          </span>
+          <span className="bannerIcon bg-[#381c37]">
+            <SiMysql className="text-xl" />
+          </span>
+          <span className="bannerIcon bg-[#6893ff]">
+            <SiDocker className="text-xl" />
+          </span>
+
           <span className="bannerIcon bg-[#f16529]">
             <SiHtml5 className="text-xl" />
           </span>
