@@ -4,15 +4,24 @@ import ContactLeft from "./ContactLeft";
 import axios from "axios";
 
 const Contact = () => {
-  const [name, setName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [email, setEmail] = useState("");
-  const [subject, setSubject] = useState("");
-  const [message, setMessage] = useState("");
+  const [form, setForm] = useState({
+    name: "",
+    phoneNumber: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
   const [errMsg, setErrMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
 
-  const emailValidation = () => {
+  const handleChange = (e) => {
+    setForm((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const emailValidation = (email) => {
     return String(email)
       .toLowerCase()
       .match(/^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/);
@@ -20,54 +29,45 @@ const Contact = () => {
 
   const handleSend = async (e) => {
     e.preventDefault();
+    const { name, phoneNumber, email, subject, message } = form;
 
-    if (name === "") {
-      setErrMsg("Name is required!");
-    } else if (phoneNumber === "") {
-      setErrMsg("Phone number is required!");
-    } else if (email === "") {
-      setErrMsg("Email is required!");
-    } else if (!emailValidation(email)) {
-      setErrMsg("Please enter a valid email!");
-    } else if (subject === "") {
-      setErrMsg("Subject is required!");
-    } else if (message === "") {
-      setErrMsg("Message is required!");
-    } else {
-      try {
-        const data = {
-          Name: name,
-          PhoneNumber: phoneNumber,
-          Email: email,
-          Subject: subject,
-          Message: message,
-        };
-        const response = await axios.post(
-          "http://localhost:3004/api/v1/create",
-          data,
-          { headers: { "Content-Type": "application/json" } }
-        );
-        console.log(" Response:", response.data);
-        setSuccessMsg(
-          `Thank you, ${name}! Your message has been sent successfully!`
-        );
-        setErrMsg("");
-        setName("");
-        setPhoneNumber("");
-        setEmail("");
-        setSubject("");
-        setMessage("");
-      } catch (err) {
-        console.error(" Axios Error:", err);
-        setErrMsg("Failed to send message. Please try again.");
-      }
+    // Validations
+    if (!name) return setErrMsg("Name is required!");
+    if (!phoneNumber) return setErrMsg("Phone number is required!");
+    if (!email) return setErrMsg("Email is required!");
+    if (!emailValidation(email))
+      return setErrMsg("Please enter a valid email!");
+    if (!subject) return setErrMsg("Subject is required!");
+    if (!message) return setErrMsg("Message is required!");
+
+    // Send data
+    try {
+      const response = await axios.post(
+        "http://localhost:3004/api/v1/create",
+        form,
+        { headers: { "Content-Type": "application/json" } }
+      );
+      console.log("Response:", response.data);
+      setSuccessMsg(
+        `Thank you, ${name}! Your message has been sent successfully!`
+      );
+      setErrMsg("");
+      setForm({
+        name: "",
+        phoneNumber: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+    } catch (err) {
+      console.error("Axios Error:", err);
+      setErrMsg("Failed to send message. Please try again.");
+      setSuccessMsg("");
     }
   };
+
   return (
-    <section
-      id="contact"
-      className="w-full py-20 border-b-[1px] border-gray-700"
-    >
+    <section id="contact" className="w-full py-20 border-b border-gray-700">
       <div className="flex justify-center items-center text-center">
         <Title title="CONTACT" des="Get in Touch" />
       </div>
@@ -75,7 +75,7 @@ const Contact = () => {
         <div className="flex flex-col lg:flex-row justify-between gap-8">
           <ContactLeft />
           <div className="w-full lg:w-[60%] bg-gray-800 rounded-lg p-6 lg:p-8 shadowOne">
-            <form className="flex flex-col gap-6">
+            <form className="flex flex-col gap-6" onSubmit={handleSend}>
               {errMsg && (
                 <p className="py-3 bg-gray-700 text-orange-500 text-center text-base font-medium rounded-lg shadowOne animate-bounce">
                   {errMsg}
@@ -86,18 +86,20 @@ const Contact = () => {
                   {successMsg}
                 </p>
               )}
+
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-2">
                   <label className="text-sm text-gray-300 uppercase font-medium">
                     Your Name
                   </label>
                   <input
-                    onChange={(e) => setName(e.target.value)}
-                    value={name}
+                    type="text"
+                    name="name"
+                    value={form.name}
+                    onChange={handleChange}
                     className={`contactInput ${
                       errMsg === "Name is required!" && "border-orange-500"
                     }`}
-                    type="text"
                     aria-label="Your name"
                   />
                 </div>
@@ -106,62 +108,69 @@ const Contact = () => {
                     Phone Number
                   </label>
                   <input
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                    value={phoneNumber}
+                    type="tel"
+                    name="phoneNumber"
+                    value={form.phoneNumber}
+                    onChange={handleChange}
                     className={`contactInput ${
                       errMsg === "Phone number is required!" &&
                       "border-orange-500"
                     }`}
-                    type="tel"
                     aria-label="Phone number"
                   />
                 </div>
               </div>
+
               <div className="flex flex-col gap-2">
                 <label className="text-sm text-gray-300 uppercase font-medium">
                   Email
                 </label>
                 <input
-                  onChange={(e) => setEmail(e.target.value)}
-                  value={email}
+                  type="email"
+                  name="email"
+                  value={form.email}
+                  onChange={handleChange}
                   className={`contactInput ${
                     errMsg.includes("Email") && "border-orange-500"
                   }`}
-                  type="email"
                   aria-label="Email address"
                 />
               </div>
+
               <div className="flex flex-col gap-2">
                 <label className="text-sm text-gray-300 uppercase font-medium">
                   Subject
                 </label>
                 <input
-                  onChange={(e) => setSubject(e.target.value)}
-                  value={subject}
+                  type="text"
+                  name="subject"
+                  value={form.subject}
+                  onChange={handleChange}
                   className={`contactInput ${
                     errMsg === "Subject is required!" && "border-orange-500"
                   }`}
-                  type="text"
                   aria-label="Subject"
                 />
               </div>
+
               <div className="flex flex-col gap-2">
                 <label className="text-sm text-gray-300 uppercase font-medium">
                   Message
                 </label>
                 <textarea
-                  onChange={(e) => setMessage(e.target.value)}
-                  value={message}
+                  name="message"
+                  value={form.message}
+                  onChange={handleChange}
                   className={`contactTextArea ${
                     errMsg === "Message is required!" && "border-orange-500"
                   }`}
-                  cols="30"
                   rows="6"
                   aria-label="Message"
                 ></textarea>
               </div>
+
               <button
-                onClick={handleSend}
+                type="submit"
                 className="w-full h-12 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                 aria-label="Send message"
               >

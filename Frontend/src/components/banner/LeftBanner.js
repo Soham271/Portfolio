@@ -6,32 +6,29 @@ const LeftBanner = () => {
   const [text] = useTypewriter({
     words: ["IIITIAN", "DSA Enthusiast", "Full Stack Developer"],
     loop: true,
-    typeSpeed: 20,
-    deleteSpeed: 10,
+    typeSpeed: 50,
+    deleteSpeed: 20,
     delaySpeed: 2000,
   });
 
   return (
-    <div className="w-full lg:w-1/2 flex flex-col gap-10 px-4 lg:px-0">
-      <div className="flex flex-col gap-6">
-        <h4 className="text-lg font-semibold text-designColor tracking-wider animate-fadeIn">
-          WELCOME TO MY WORLD
+    <div className="w-full lg:w-1/2 flex flex-col gap-8 px-4 lg:px-0">
+      <div className="flex flex-col gap-4">
+        <h4 className="text-sm uppercase text-amber-500 font-semibold tracking-widest">
+          Welcome to my world
         </h4>
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
-          Hi, I'm{" "}
-          <span className="text-designColor capitalize text-red-500">
-            Soham N Patil
-          </span>
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+          Hi, I'm <span className="text-red-700">Soham N Patil</span>
         </h1>
-        <h2 className="text-3xl sm:text-4xl font-bold text-white flex items-center">
-          a <span className="ml-2">{text}</span>
+        <h2 className="text-2xl sm:text-3xl font-semibold text-gray-300 flex items-center">
+          a <span className="ml-2 text-red-700">{text}</span>
           <Cursor
             cursorBlinking={false}
             cursorStyle="|"
-            cursorColor="#ff014f"
+            cursorColor="#f59e0b"
           />
         </h2>
-        <p className="text-base font-medium text-gray-300 leading-7 tracking-wide max-w-md">
+        <p className="text-base font-medium text-gray-400 max-w-md leading-relaxed tracking-wide">
           I craft seamless digital experiences using animation to enhance
           interactions, focusing on intuitive and impactful design solutions.
         </p>
