@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import {
   FaFacebookF,
   FaLinkedinIn,
@@ -32,7 +33,7 @@ const Media = () => {
             href="https://www.facebook.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-10 h-10 flex items-center justify-center rounded-full bg-[#3b5998] hover:bg-[#2d4373] transition duration-300"
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800/50 backdrop-blur-md border border-gray-700/50 hover:border-blue-500/50 hover:bg-blue-500/20 transition duration-300"
           >
             <FaFacebookF className="text-white text-lg" />
           </a>
@@ -40,7 +41,7 @@ const Media = () => {
             href="https://www.instagram.com/sohamnpatil2711"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-orange-500 hover:from-pink-600 hover:to-orange-600 transition duration-300"
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800/50 backdrop-blur-md border border-gray-700/50 hover:border-pink-500/50 hover:bg-pink-500/20 transition duration-300"
           >
             <FaInstagram className="text-white text-lg" />
           </a>
@@ -48,7 +49,7 @@ const Media = () => {
             href="https://www.linkedin.com/in/soham-p-418b77267"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-10 h-10 flex items-center justify-center rounded-full bg-[#0077b5] hover:bg-[#005582] transition duration-300"
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800/50 backdrop-blur-md border border-gray-700/50 hover:border-blue-500/50 hover:bg-blue-500/20 transition duration-300"
           >
             <FaLinkedinIn className="text-white text-lg" />
           </a>
@@ -56,7 +57,7 @@ const Media = () => {
             href="https://github.com/Soham271"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-700 hover:bg-black transition duration-300"
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800/50 backdrop-blur-md border border-gray-700/50 hover:border-gray-500/50 hover:bg-gray-500/20 transition duration-300"
           >
             <FaGithub className="text-white text-lg" />
           </a>
@@ -68,7 +69,7 @@ const Media = () => {
         <h2 className="text-base uppercase font-medium text-gray-400 mb-3">
           Best Skills
         </h2>
-        <div className="flex gap-3 flex-wrap justify-center">
+        <div className="flex gap-4 flex-wrap justify-center">
           {[
             FaReact,
             SiJavascript,
@@ -81,12 +82,14 @@ const Media = () => {
             SiMysql,
             SiDocker,
           ].map((Icon, idx) => (
-            <span
+            <motion.span
               key={idx}
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 text-white shadow-md hover:bg-amber-500 hover:text-black transition duration-300"
+              className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-800/50 backdrop-blur-md border border-gray-700/50 text-white hover:bg-gradient-to-r hover:from-purple-500 hover:to-blue-500 hover:text-white transition duration-300"
+              whileHover={{ rotate: 360 }}
+              transition={{ duration: 0.5 }}
             >
-              <Icon className="text-lg" />
-            </span>
+              <Icon className="text-2xl" />
+            </motion.span>
           ))}
         </div>
       </div>
@@ -96,7 +99,7 @@ const Media = () => {
         <a
           href={resume}
           download
-          className="px-6 py-3 bg-amber-500 text-black font-semibold rounded-lg shadow hover:shadow-xl hover:bg-amber-600 transition duration-300"
+          className="px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold rounded-lg shadow hover:shadow-xl hover:from-purple-600 hover:to-blue-600 transition duration-300"
         >
           Download CV
         </a>

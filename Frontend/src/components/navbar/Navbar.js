@@ -52,7 +52,8 @@ const Navbar = () => {
                   className="w-24 h-24 rounded-full object-cover shadowOne"
                 />
                 <p className="text-sm text-gray-300 mt-4 text-center max-w-xs">
-                  Passionate MERN Stack Developer creating innovative web solutions with a focus on user experience.
+                  Passionate MERN Stack Developer creating innovative web
+                  solutions with a focus on user experience.
                 </p>
               </div>
               <ul className="flex flex-col gap-4 items-center">

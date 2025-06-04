@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import Title from "../layouts/Title";
 import ContactLeft from "./ContactLeft";
 import axios from "axios";
@@ -67,29 +68,79 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="w-full py-20 border-b border-gray-700">
-      <div className="flex justify-center items-center text-center">
-        <Title title="CONTACT" des="Get in Touch" />
+    <section
+      id="contact"
+      className="w-full py-20 min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-black relative overflow-hidden"
+    >
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-indigo-500/3 rounded-full blur-2xl animate-pulse delay-500"></div>
       </div>
-      <div className="w-full max-w-7xl mx-auto">
+
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-white/20 rounded-full animate-float"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${3 + Math.random() * 4}s`,
+            }}
+          ></div>
+        ))}
+      </div>
+
+      <div className="relative z-10 w-full max-w-7xl mx-auto">
+        <motion.div
+          className="flex justify-center items-center text-center mb-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="relative">
+            <Title
+              title="CONTACT"
+              des="Get in Touch"
+              className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent animate-gradient-x"
+            />
+          </div>
+        </motion.div>
         <div className="flex flex-col lg:flex-row justify-between gap-8">
           <ContactLeft />
-          <div className="w-full lg:w-[60%] bg-gray-800 rounded-lg p-6 lg:p-8 shadowOne">
+          <motion.div
+            className="w-full lg:w-[60%] bg-gray-800/50 backdrop-blur-md rounded-xl p-6 lg:p-8 border border-gray-700/50 shadow-lg shadow-purple-500/20 hover:border-purple-500/50 transition-colors duration-300"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
             <form className="flex flex-col gap-6" onSubmit={handleSend}>
               {errMsg && (
-                <p className="py-3 bg-gray-700 text-orange-500 text-center text-base font-medium rounded-lg shadowOne animate-bounce">
+                <motion.p
+                  className="py-3 bg-gray-700/50 backdrop-blur-md text-orange-500 text-center text-base font-medium rounded-lg border border-orange-500/50"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3 }}
+                >
                   {errMsg}
-                </p>
+                </motion.p>
               )}
               {successMsg && (
-                <p className="py-3 bg-gray-700 text-green-500 text-center text-base font-medium rounded-lg shadowOne animate-bounce">
+                <motion.p
+                  className="py-3 bg-gray-700/50 backdrop-blur-md text-green-500 text-center text-base font-medium rounded-lg border border-green-500/50"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3 }}
+                >
                   {successMsg}
-                </p>
+                </motion.p>
               )}
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-2">
-                  <label className="text-sm text-gray-300 uppercase font-medium">
+                  <label className="text-sm text-gray-400 uppercase font-medium">
                     Your Name
                   </label>
                   <input
@@ -97,14 +148,14 @@ const Contact = () => {
                     name="name"
                     value={form.name}
                     onChange={handleChange}
-                    className={`contactInput ${
+                    className={`w-full p-3 bg-gray-900/50 border border-gray-700/50 rounded-lg text-white focus:outline-none focus:border-purple-500 transition-colors duration-300 ${
                       errMsg === "Name is required!" && "border-orange-500"
                     }`}
                     aria-label="Your name"
                   />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <label className="text-sm text-gray-300 uppercase font-medium">
+                  <label className="text-sm text-gray-400 uppercase font-medium">
                     Phone Number
                   </label>
                   <input
@@ -112,7 +163,7 @@ const Contact = () => {
                     name="phoneNumber"
                     value={form.phoneNumber}
                     onChange={handleChange}
-                    className={`contactInput ${
+                    className={`w-full p-3 bg-gray-900/50 border border-gray-700/50 rounded-lg text-white focus:outline-none focus:border-purple-500 transition-colors duration-300 ${
                       errMsg === "Phone number is required!" &&
                       "border-orange-500"
                     }`}
@@ -122,7 +173,7 @@ const Contact = () => {
               </div>
 
               <div className="flex flex-col gap-2">
-                <label className="text-sm text-gray-300 uppercase font-medium">
+                <label className="text-sm text-gray-400 uppercase font-medium">
                   Email
                 </label>
                 <input
@@ -130,7 +181,7 @@ const Contact = () => {
                   name="email"
                   value={form.email}
                   onChange={handleChange}
-                  className={`contactInput ${
+                  className={`w-full p-3 bg-gray-900/50 border border-gray-700/50 rounded-lg text-white focus:outline-none focus:border-purple-500 transition-colors duration-300 ${
                     errMsg.includes("Email") && "border-orange-500"
                   }`}
                   aria-label="Email address"
@@ -138,7 +189,7 @@ const Contact = () => {
               </div>
 
               <div className="flex flex-col gap-2">
-                <label className="text-sm text-gray-300 uppercase font-medium">
+                <label className="text-sm text-gray-400 uppercase font-medium">
                   Subject
                 </label>
                 <input
@@ -146,7 +197,7 @@ const Contact = () => {
                   name="subject"
                   value={form.subject}
                   onChange={handleChange}
-                  className={`contactInput ${
+                  className={`w-full p-3 bg-gray-900/50 border border-gray-700/50 rounded-lg text-white focus:outline-none focus:border-purple-500 transition-colors duration-300 ${
                     errMsg === "Subject is required!" && "border-orange-500"
                   }`}
                   aria-label="Subject"
@@ -154,14 +205,14 @@ const Contact = () => {
               </div>
 
               <div className="flex flex-col gap-2">
-                <label className="text-sm text-gray-300 uppercase font-medium">
+                <label className="text-sm text-gray-400 uppercase font-medium">
                   Message
                 </label>
                 <textarea
                   name="message"
                   value={form.message}
                   onChange={handleChange}
-                  className={`contactTextArea ${
+                  className={`w-full p-3 bg-gray-900/50 border border-gray-700/50 rounded-lg text-white focus:outline-none focus:border-purple-500 transition-colors duration-300 resize-none ${
                     errMsg === "Message is required!" && "border-orange-500"
                   }`}
                   rows="6"
@@ -169,17 +220,72 @@ const Contact = () => {
                 ></textarea>
               </div>
 
-              <button
+              <motion.button
                 type="submit"
-                className="w-full h-12 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                className="w-full h-12 bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl hover:from-purple-600 hover:to-blue-600 transition-all duration-300 transform hover:scale-105"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 aria-label="Send message"
               >
                 Send Message
-              </button>
+              </motion.button>
             </form>
-          </div>
+          </motion.div>
         </div>
       </div>
+
+      {/* Custom Styles */}
+      <style jsx>{`
+        @keyframes float {
+          0%,
+          100% {
+            transform: translateY(0px) rotate(0deg);
+          }
+          33% {
+            transform: translateY(-10px) rotate(1deg);
+          }
+          66% {
+            transform: translateY(5px) rotate(-1deg);
+          }
+        }
+
+        @keyframes gradient-x {
+          0%,
+          100% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+        }
+
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+
+        .animate-gradient-x {
+          background-size: 200% 200%;
+          animation: gradient-x 3s ease infinite;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+          width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+          background: rgba(17, 24, 39, 0.5);
+        }
+
+        ::-webkit-scrollbar-thumb {
+          background: linear-gradient(to bottom, #8b5cf6, #3b82f6);
+          border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+          background: linear-gradient(to bottom, #7c3aed, #2563eb);
+        }
+      `}</style>
     </section>
   );
 };

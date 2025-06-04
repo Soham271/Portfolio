@@ -1,34 +1,45 @@
 import React from "react";
 import { HiArrowRight } from "react-icons/hi";
+import { motion } from "framer-motion";
 
 const Card = ({ item: { title, des, icon } }) => {
   return (
-    <div className="w-full px-12 h-80 py-10 rounded-lg shadow-shadowOne flex items-center bg-gradient-to-r from-bodyColor to-[#202327] group hover:bg-gradient-to-b hover:from-black hover:to-[#1e2024] transition-colors duration-100 group">
-      <div className="h-72 overflow-y-hidden">
-        <div className="flex h-full flex-col gap-10 translate-y-16 group-hover:translate-y-0 transition-transform duration-500">
-          <div className="w-10 h-8 flex flex-col justify-between">
-            {icon ? (
-              <span className="text-5xl text-designColor">{icon}</span>
-            ) : (
-              <>
-                <span className="w-full h-[2px] rounded-lg bg-designColor inline-flex"></span>
-                <span className="w-full h-[2px] rounded-lg bg-designColor inline-flex"></span>
-                <span className="w-full h-[2px] rounded-lg bg-designColor inline-flex"></span>
-                <span className="w-full h-[2px] rounded-lg bg-designColor inline-flex"></span>
-              </>
-            )}
-          </div>
-          <div className="flex flex-col gap-6">
-            <h2 className="text-xl md:text-2xl font-titleFont font-bold text-gray-300">
-              {title}
-            </h2>
-            <p className="base">{des}</p>
-            <span className="text-2xl text-designColor">
-              <HiArrowRight />
+    <div className="w-full h-80 p-6 rounded-xl bg-gray-800/50 backdrop-blur-md border border-gray-700/50 hover:border-purple-500/50 transition-colors duration-300 flex items-center">
+      <motion.div
+        className="flex flex-col gap-6 h-full"
+        initial={{ y: 16, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="flex items-center gap-4">
+          {icon ? (
+            <span className="w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-md flex items-center justify-center text-3xl text-white">
+              {icon}
             </span>
-          </div>
+          ) : (
+            <div className="w-12 h-12 flex flex-col justify-between">
+              <span className="w-full h-[2px] rounded-lg bg-gradient-to-r from-purple-500 to-blue-500 inline-flex"></span>
+              <span className="w-full h-[2px] rounded-lg bg-gradient-to-r from-purple-500 to-blue-500 inline-flex"></span>
+              <span className="w-full h-[2px] rounded-lg bg-gradient-to-r from-purple-500 to-blue-500 inline-flex"></span>
+              <span className="w-full h-[2px] rounded-lg bg-gradient-to-r from-purple-500 to-blue-500 inline-flex"></span>
+            </div>
+          )}
+          <h2 className="text-xl md:text-2xl font-titleFont font-bold text-white">
+            {title}
+          </h2>
         </div>
-      </div>
+        <p className="text-gray-400 leading-relaxed">{des}</p>
+        <span className="text-2xl text-purple-500 group-hover:text-blue-500 transition-colors duration-300">
+          <HiArrowRight />
+        </span>
+      </motion.div>
+
+      {/* Custom Styles */}
+      <style jsx>{`
+        .group:hover .text-purple-500 {
+          color: #3b82f6;
+        }
+      `}</style>
     </div>
   );
 };
