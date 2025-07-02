@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Title from "../layouts/Title";
 import ContactLeft from "./ContactLeft";
-import axios from "axios";
 
+import emailjs from "@emailjs/browser";
 const Contact = () => {
   const [form, setForm] = useState({
     name: "",
@@ -32,7 +32,6 @@ const Contact = () => {
     e.preventDefault();
     const { name, phoneNumber, email, subject, message } = form;
 
-    // Validations
     if (!name) return setErrMsg("Name is required!");
     if (!phoneNumber) return setErrMsg("Phone number is required!");
     if (!email) return setErrMsg("Email is required!");
@@ -41,14 +40,23 @@ const Contact = () => {
     if (!subject) return setErrMsg("Subject is required!");
     if (!message) return setErrMsg("Message is required!");
 
-    // Send data
     try {
-      const response = await axios.post(
-        "http://localhost:3004/api/v1/create",
-        form,
-        { headers: { "Content-Type": "application/json" } }
+      const templateParams = {
+        from_name: name,
+        from_email: email,
+        phone: phoneNumber,
+        subject,
+        message,
+      };
+
+      const result = await emailjs.send(
+        "service_511dutx",
+        "template_ealfrph",
+        templateParams,
+        "h8k_BVsdLvnc0_mqI"
       );
-      console.log("Response:", response.data);
+
+      console.log("EmailJS success:", result.text);
       setSuccessMsg(
         `Thank you, ${name}! Your message has been sent successfully!`
       );
@@ -60,8 +68,8 @@ const Contact = () => {
         subject: "",
         message: "",
       });
-    } catch (err) {
-      console.error("Axios Error:", err);
+    } catch (error) {
+      console.error("EmailJS error:", error);
       setErrMsg("Failed to send message. Please try again.");
       setSuccessMsg("");
     }
