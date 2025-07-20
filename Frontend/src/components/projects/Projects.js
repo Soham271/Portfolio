@@ -1,9 +1,8 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import { Autoplay } from "swiper/modules";
 import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import "swiper/css/autoplay";
 import ProjectsCard from "./ProjectsCard";
 import {
   projectOne,
@@ -50,26 +49,29 @@ const Projects = () => (
   >
     <div className="relative z-10">
       <div className="flex justify-center items-center text-center">
-        <h2 className="text-6xl mb-18 md:text-6xl font-bold bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent">
+        <h2 className="text-5xl mb-16 md:text-6xl font-bold bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent">
           My Projects
         </h2>
       </div>
-      {/* Continuous slider */}
+      {/* Autoplaying, infinite linear slider */}
       <Swiper
-        spaceBetween={32}
         slidesPerView={1}
+        spaceBetween={32}
         loop={true}
+        speed={4000} // Higher for slower, lower for faster scroll (ms for slide change)
         autoplay={{
-          delay: 0,
+          delay: 0, // Zero for continuous motion
           disableOnInteraction: false,
+          pauseOnMouseEnter: false, // Optional: keeps moving on hover
         }}
-        speed={3500}
+        freeMode={true}
+        freeModeMomentum={false}
         breakpoints={{
           768: { slidesPerView: 2 },
           1280: { slidesPerView: 3 },
         }}
-        modules={[Navigation, Pagination, Autoplay]}
-        allowTouchMove={false}
+        modules={[Autoplay]}
+        className="project-swiper"
       >
         {projectsData.map((proj, idx) => (
           <SwiperSlide key={idx}>
@@ -84,43 +86,6 @@ const Projects = () => (
         ))}
       </Swiper>
     </div>
-    <style jsx>{`
-      @keyframes float {
-        0%,
-        100% {
-          transform: translateY(0px) rotate(0deg);
-        }
-        33% {
-          transform: translateY(-10px) rotate(1deg);
-        }
-        66% {
-          transform: translateY(5px) rotate(-1deg);
-        }
-      }
-
-      .animate-float {
-        animation: float 6s ease-in-out infinite;
-      }
-
-      /* Custom scrollbar */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-
-      ::-webkit-scrollbar-track {
-        background: rgba(17, 24, 39, 0.5);
-      }
-
-      ::-webkit-scrollbar-thumb {
-        background: linear-gradient(to bottom, #8b5cf6, #3b82f6);
-        border-radius: 4px;
-      }
-
-      ::-webkit-scrollbar-thumb:hover {
-        background: linear-gradient(to bottom, #7c3aed, #2563eb);
-      }
-    `}</style>
-    ;
   </section>
 );
 
