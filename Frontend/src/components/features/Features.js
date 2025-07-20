@@ -39,7 +39,7 @@ const Features = () => {
           <div className="relative">
             <Title
               title="Features"
-              des="What I Do"
+             
               className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent animate-gradient-x"
             />
           </div>
