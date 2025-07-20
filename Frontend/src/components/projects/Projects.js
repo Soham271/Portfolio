@@ -50,7 +50,7 @@ const Projects = () => (
   >
     <div className="relative z-10">
       <div className="flex justify-center items-center text-center">
-        <h2 className="text-6xl mb-16 md:text-6xl font-bold bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent">
+        <h2 className="text-6xl mb-18 md:text-6xl font-bold bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent">
           My Projects
         </h2>
       </div>
