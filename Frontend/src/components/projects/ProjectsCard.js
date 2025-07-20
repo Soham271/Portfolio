@@ -12,7 +12,7 @@ const ProjectsCard = ({ title, des, srcs = [], githubLink, liveLink }) => {
     if (url) {
       window.open(url, "_blank", "noopener,noreferrer");
     } else {
-      alert("Link is not available.");
+      alert("Link is not available .");
     }
   };
 
